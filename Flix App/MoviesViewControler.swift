@@ -11,8 +11,6 @@ import AlamofireImage
 
 class MoviesViewControler: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     @IBOutlet weak var tableView: UITableView!
     var movies = [[String:Any]]()   // a list of dictionaries; dictionary has one []
 
@@ -62,30 +60,41 @@ class MoviesViewControler: UIViewController, UITableViewDelegate, UITableViewDat
         
         let movie = movies[indexPath.row]   // accessing each movie from API call
         let titles = movie["title"] as! String
-        let pictures = movie["pictures"]
         let synopsis = movie["overview"] as! String
-        
+    
         cell.titleLabel!.text = titles
         cell.synopsisLabel!.text = synopsis
 
         let baseUrl = "https://image.tmdb.org/t/p/w185"
         let posterPath = movie["poster_path"] as! String
         // URL validates it was correctly formed
-        let posterURL = URL(string:baseUrl + posterPath)!
-        cell.posterView.af_setImage(withURL: posterURL) // downloads image
-        
+        let posterURL = URL(string:baseUrl + posterPath)
+        cell.posterView.af.setImage(withURL: posterURL!) // downloads image
         return cell
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+     //MARK: - Navigation
+
+     //In a storyboard-based application, you will often want to do a little preparation before navigation
+    // sender is cell that is tapped on
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//         Get the new view controller using segue.destination.
+//         Pass the selected object to the new view controller.
+        
+        print("Loading up detail screen")
+        
+        // Find selected movie
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+    
+        // Pass selected movie to MovieDetailsViewController
+        // store movie into controller
+        let detailsViewController = segue.destination as! MovieDetailedViewController   //cast it to give you the movie property
+        detailsViewController.movie = movie
+        tableView.deselectRow(at:indexPath, animated: true) // highlight selection briefly, then not anymore
     }
-    */
 
 }
