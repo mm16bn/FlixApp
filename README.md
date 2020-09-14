@@ -18,7 +18,8 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 <img src="http://g.recordit.co/4fKYBNSqiB.gif" width=250><br>
 
 ### Notes
-Had some difficulty resizing the image gallery so that it would fit with the ImageView. But I figured out how to use the ruler fortunately. 
+Had some difficulty resizing the cell and image so that they were aligned. But I figured out how to use the ruler fortunately. 
+
 ---
 
 ## Flix Part 1
